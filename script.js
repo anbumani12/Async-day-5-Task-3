@@ -59,7 +59,7 @@ fetch(countryUrl)
 
       // Fetch weather data for the current country and update the card with the information
       fetchWeatherData(latitude, longitude, countryName, flagUrl)
-        .then(({ countryName, flagUrl, weatherData }) => {
+        .then(({ countryName, weatherData }) => {
           const weatherInfoDiv = document.getElementById(
             `${countryName.replace(/\s/g, "-")}`
           );
