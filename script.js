@@ -27,7 +27,13 @@ fetch(countryUrl)
     // Iterate through each country in the response
     countries.forEach((country) => {
       const countryDiv = document.createElement("div");
-      countryDiv.classList.add("country-card", "col-sm-6", "col-md-4", "col-lg-4", "col-xl-4");
+      countryDiv.classList.add(
+        "country-card",
+        "col-sm-6",
+        "col-md-4",
+        "col-lg-4",
+        "col-xl-4"
+      );
 
       const countryName = country.name || "N/A";
       const latitude = country.latlng[0] || 0;
@@ -41,7 +47,10 @@ fetch(countryUrl)
             <h5 class="card-title">${countryName}</h5>
           </div>
           <img class="card-img-top" src="${flagUrl}" alt="${countryName} Flag"> <!-- Add flag image -->
-          <div class="card-text weather-info" id="${countryName.replace(/\s/g, '-')}">Loading Weather...</div>
+          <div class="card-text weather-info" id="${countryName.replace(
+            /\s/g,
+            "-"
+          )}">Loading Weather...</div>
         </div>
       `;
 
@@ -51,7 +60,9 @@ fetch(countryUrl)
       // Fetch weather data for the current country and update the card with the information
       fetchWeatherData(latitude, longitude, countryName, flagUrl)
         .then(({ countryName, flagUrl, weatherData }) => {
-          const weatherInfoDiv = document.getElementById(`${countryName.replace(/\s/g, '-')}`);
+          const weatherInfoDiv = document.getElementById(
+            `${countryName.replace(/\s/g, "-")}`
+          );
           weatherInfoDiv.innerHTML = `
             Temperature: ${weatherData.main.temp} K<br>
             Min Temperature: ${weatherData.main.temp_min} K<br>
@@ -64,7 +75,10 @@ fetch(countryUrl)
           `;
         })
         .catch((error) => {
-          console.error(`Error fetching weather data for ${countryName}:`, error);
+          console.error(
+            `Error fetching weather data for ${countryName}:`,
+            error
+          );
         });
     });
   })
@@ -75,9 +89,13 @@ fetch(countryUrl)
 // Function to find the flag URL in the country object
 function findFlagUrl(country) {
   for (const key in country) {
-    if (country.hasOwnProperty(key) && typeof country[key] === "string" && country[key].startsWith("http")) {
+    if (
+      country.hasOwnProperty(key) &&
+      typeof country[key] === "string" &&
+      country[key].startsWith("http")
+    ) {
       return country[key];
     }
   }
-  return "N/A" ;
+  return "N/A";
 }
